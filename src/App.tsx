@@ -5,7 +5,7 @@ import Header from './Header';
 import Content from './Container';
 import { useState, useEffect } from 'react';
 
-const JOKE_REQUEST = "https://3005-15dkatz-officialjokeapi-uf1uft3x6ig.ws-us61.gitpod.io/random_joke";
+const JOKE_REQUEST = "https://official-joke-api.appspot.com/random_joke";
 
 interface Joke {
   id: Number,
