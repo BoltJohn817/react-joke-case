@@ -16,7 +16,6 @@ function App() {
   const loadJoke = async () => {
     setCurrentState(JOKE_STATE.STATE_LOADING);
     setLoadingError(false);
-    console.log("Load Joke");
     try {
       const response = await fetch(JOKE_REQUEST);
       setJoke(await response.json());
