@@ -1,4 +1,4 @@
-import styles from './Quote.module.css';
+import styles from './index.module.css';
 
 export default ({children, type}: any) => {
     return (

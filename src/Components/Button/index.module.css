@@ -4,6 +4,7 @@
     font-size: 20px;
     color: white;
     border: none;
+    cursor: pointer;
 }
 .button-success {
     background-color: rgb(108, 167, 108);

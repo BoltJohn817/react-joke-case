@@ -1,52 +1,47 @@
-import React from 'react';
-import logo from './logo.svg';
-import styles from './App.module.css';
-import Header from './Header';
-import Content from './Container';
-import { useState, useEffect } from 'react';
+import React from "react";
+import styles from "./App.module.css";
+import { Header, Container } from "./Pages";
+import { useState, useEffect } from "react";
+import { JOKE_STATE, Joke } from "./types";
 
-const JOKE_REQUEST = "https://official-joke-api.appspot.com/random_joke";
-
-interface Joke {
-  id: Number,
-  type: String,
-  setup: String,
-  punchline: String
-}
+const JOKE_REQUEST = "https://karljoke.herokuapp.com/jokes/random";
 
 function App() {
-  const [currentState, setCurrentState] = useState("");
-  const [joke, setJoke] =  useState<undefined | Joke>();
-
-  const loadFakeJoke = () => {
-    setCurrentState("success");
-    setJoke({
-      id: 10,
-      type: 'fake',
-      setup: 'If you see a robbery at an Apple Store...',
-      punchline: 'Does that make you an iWitness?'
-    })
-  }
+  const [currentState, setCurrentState] = useState<JOKE_STATE>(
+    JOKE_STATE.STATE_LOADING
+  );
+  const [loadingError, setLoadingError] = useState<boolean>(false);
+  const [joke, setJoke] = useState<undefined | Joke>();
 
   const loadJoke = async () => {
-      setCurrentState("loading");
-      fetch(JOKE_REQUEST).then(async (response) => {
-          setCurrentState("success");
-          const joke = await response.json();
-          setJoke(joke);
-      }).catch((err) => {
-          console.log("Got an error");
-          setCurrentState("error");
-      })
-  }
+    setCurrentState(JOKE_STATE.STATE_LOADING);
+    setLoadingError(false);
+    console.log("Load Joke");
+    try {
+      const response = await fetch(JOKE_REQUEST);
+      setJoke(await response.json());
+      setCurrentState(JOKE_STATE.STATE_DONE);
+    } catch (err) {
+      setCurrentState(JOKE_STATE.STATE_DONE);
+      setLoadingError(true);
+    }
+  };
 
   useEffect(() => {
-      loadJoke();
+    loadJoke();
   }, []);
   return (
     <div className={styles.App}>
-      <Header onGetNewJoke={() => { loadJoke() }}/>
-      <Content joke={joke} currentState={currentState}/>
+      <Header
+        onGetNewJoke={() => {
+          loadJoke();
+        }}
+      />
+      <Container
+        joke={joke}
+        currentState={currentState}
+        errorOccured={loadingError}
+      />
     </div>
   );
 }
