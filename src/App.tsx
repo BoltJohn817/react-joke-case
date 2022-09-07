@@ -3,6 +3,7 @@ import styles from "./App.module.css";
 import { Header, Container } from "./Pages";
 import { useState, useEffect } from "react";
 import { JOKE_STATE, Joke } from "./types";
+import { StyledButton } from "./Components";
 
 const JOKE_REQUEST = "https://karljoke.herokuapp.com/jokes/random";
 
