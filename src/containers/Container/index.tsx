@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import styles from "./index.module.css";
-import { Quote, Button } from "../../Components";
+import { Quote, Button } from "../../components";
 
 import { Joke, JOKE_STATE } from "../../types";
 
@@ -34,7 +34,7 @@ const Container: React.FC<IContainerProps> = ({
           <Fragment>
             <div className={styles["button-container"]}>
               <Button
-                button_style="primary"
+                buttonStyle="primary"
                 onClick={() => {
                   setShowPunchline(false);
                 }}
@@ -45,10 +45,10 @@ const Container: React.FC<IContainerProps> = ({
             <Quote>{joke?.punchline}</Quote>
           </Fragment>
         ) : (
-          <Fragment>
+          <>
             <div className={styles["button-container"]}>
               <Button
-                button_style="primary"
+                buttonStyle="primary"
                 onClick={() => {
                   setShowPunchline(true);
                 }}
@@ -56,7 +56,7 @@ const Container: React.FC<IContainerProps> = ({
                 Show Punchline
               </Button>
             </div>
-          </Fragment>
+          </>
         )}
       </>
     );

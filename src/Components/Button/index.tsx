@@ -1,19 +1,17 @@
-import React from "react";
-import PropTypes from 'prop-types';
 import styles from "./index.module.css";
 
 interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  button_style: string;
+  buttonStyle: string;
 }
 
 const Button: React.FC<IButtonProps> = ({
   children,
-  button_style,
+  buttonStyle,
   ...props
 }) => {
   return (
     <button
-      className={`${styles.button} ${styles[`button-${button_style}`]}`}
+      className={`${styles.button} ${styles[`button-${buttonStyle}`]}`}
       {...props}
     >
       {children}
