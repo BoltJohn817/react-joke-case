@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { render } from "@testing-library/react";
 import styles from "./index.module.css";
 import { Quote, Button } from "../../Components";
 
@@ -11,8 +10,11 @@ interface IContainerProps {
   joke: Joke | undefined;
 }
 
-
-const Container: React.FC<IContainerProps> = ({ currentState, errorOccured, joke }) => {
+const Container: React.FC<IContainerProps> = ({
+  currentState,
+  errorOccured,
+  joke,
+}) => {
   const [showPunchLine, setShowPunchline] = useState(false);
   useEffect(() => {
     setShowPunchline(false);

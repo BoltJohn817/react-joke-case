@@ -1,29 +1,19 @@
-import React from "react";
-import styles from "./App.module.css";
-import { Header, Container } from "./Pages";
-import { useState, useEffect } from "react";
-import { JOKE_STATE, Joke } from "./types";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
-const JOKE_REQUEST = "https://karljoke.herokuapp.com/jokes/random";
+import { Header, Container } from "./Pages";
+
+import { fetchJoke, selectJoke } from "./app/jokeSlice";
+import { AppDispatch } from "./app/store";
+
+import styles from "./App.module.css";
 
 function App() {
-  const [currentState, setCurrentState] = useState<JOKE_STATE>(
-    JOKE_STATE.STATE_LOADING
-  );
-  const [loadingError, setLoadingError] = useState<boolean>(false);
-  const [joke, setJoke] = useState<undefined | Joke>();
+  const dispatch = useDispatch<AppDispatch>();
+  const joke = useSelector(selectJoke);
 
   const loadJoke = async () => {
-    setCurrentState(JOKE_STATE.STATE_LOADING);
-    setLoadingError(false);
-    try {
-      const response = await fetch(JOKE_REQUEST);
-      setJoke(await response.json());
-      setCurrentState(JOKE_STATE.STATE_DONE);
-    } catch (err) {
-      setCurrentState(JOKE_STATE.STATE_DONE);
-      setLoadingError(true);
-    }
+    dispatch(fetchJoke());
   };
 
   useEffect(() => {
@@ -37,9 +27,9 @@ function App() {
         }}
       />
       <Container
-        joke={joke}
-        currentState={currentState}
-        errorOccured={loadingError}
+        joke={joke.joke}
+        currentState={joke.jokeState}
+        errorOccured={joke.jokeLoadingError}
       />
     </div>
   );
