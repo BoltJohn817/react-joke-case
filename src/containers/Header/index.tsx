@@ -9,7 +9,7 @@ interface IHeaderProps {
 const Header: React.FC<IHeaderProps> = ({ onGetNewJoke }) => {
   return (
     <div className={styles.header}>
-      <Button button_style="success" onClick={onGetNewJoke}>
+      <Button buttonStyle="success" onClick={onGetNewJoke}>
         Get A New Random Joke
       </Button>
       <a href="https://github.com/15Dkatz/official_joke_api" target="_blank">
